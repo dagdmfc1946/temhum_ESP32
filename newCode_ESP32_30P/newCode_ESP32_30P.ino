@@ -29,10 +29,12 @@ void setup() {
   int V_batt = read_VBatt();
   if (V_batt < 3300) {
     mostrarAdvertenciaBateria();
+  } else {
+    mostrarEstadoBateria(V_batt);
   }
 
   connectWiFi();
-  enviarDatosPorPOST(TEM, HUM, V_batt);
+  //enviarDatosPorPOST(TEM, HUM, V_batt);  // Mientras reviso el tema del servidor o donde almacenar datos.
 
   mostrarDeepSleepOLED();
   apagarOLED();

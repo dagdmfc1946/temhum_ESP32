@@ -88,6 +88,21 @@ void mostrarAdvertenciaBateria() {
   }
 }
 
+void mostrarEstadoBateria(int voltage) {
+  initOLED();
+  display.clearDisplay();
+  display.setTextColor(SSD1306_WHITE);
+  display.setTextWrap(false);
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.println("BATTERY STATUS");
+  display.setTextSize(2);
+  display.setCursor(0, 24);
+  display.printf("%d mV", voltage);
+  display.display();
+  delay(2000);
+}
+
 void mostrarConexionWiFiOLED() {
   mostrarTresLineas("Conectando", "a red", "Wi-Fi...", 2);
 }

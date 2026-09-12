@@ -8,9 +8,10 @@ Este directorio contiene una nueva version modular del proyecto para una placa E
 2. Lee temperatura y humedad mediante un DHT11.
 3. Muestra las lecturas en una pantalla OLED SSD1306 de 0.96 pulgadas y 128x64 pixeles.
 4. Lee la tension de bateria mediante el ADC del GPIO34.
-5. Se conecta a una red Wi-Fi.
-6. Envia las lecturas al servidor mediante HTTP POST en formato JSON.
-7. Apaga los perifericos y entra en Deep Sleep durante el tiempo configurado.
+5. Muestra el estado de la bateria cuando la tension medida es igual o superior a 3300 mV.
+6. Se conecta a una red Wi-Fi.
+7. Envia las lecturas al servidor mediante HTTP POST en formato JSON.
+8. Apaga los perifericos y entra en Deep Sleep durante el tiempo configurado.
 
 El archivo `loop()` permanece vacio porque el dispositivo se reinicia desde `setup()` despues de cada despertar.
 
@@ -21,7 +22,7 @@ El archivo `loop()` permanece vacio porque el dispositivo se reinicia desde `set
 - `includess.h`: incluye las cabeceras del proyecto.
 - `lectura_DHT.h`: inicializacion y lectura del DHT11.
 - `lectura_Vbatt.h`: lectura del ADC y conversion a milivoltios.
-- `oled_ON.h` y `oled_ON.cpp`: funciones de la pantalla OLED con Adafruit GFX y Adafruit SSD1306.
+- `oled_ON.h` y `oled_ON.cpp`: funciones de la pantalla OLED con Adafruit GFX y Adafruit SSD1306, incluida `mostrarEstadoBateria(int voltage)`.
 - `wifi_ON.h`: conexion Wi-Fi y gestion del indicador LED/OLED.
 - `envioDatosPOST.h`: construccion y envio del JSON por HTTP POST.
 - `dormir_Placa.h`: apagado de perifericos y Deep Sleep.
@@ -40,6 +41,10 @@ El archivo `loop()` permanece vacio porque el dispositivo se reinicia desde `set
 | LED integrado | 2 | Indicador visual de estado |
 
 El GPIO34 es solo de entrada, por lo que esta version no usa un pin de control para activar el divisor de bateria. El factor de correccion se configura con `VBAT_DIVIDER_FACTOR`.
+
+## Estado de bateria
+
+La funcion `mostrarEstadoBateria(int voltage)` se ejecuta cuando la lectura es de al menos 3300 mV. Muestra en la OLED el texto `BATTERY STATUS` y el valor medido en milivoltios durante dos segundos. Si la lectura es inferior a 3300 mV, se ejecuta `mostrarAdvertenciaBateria()` en su lugar.
 
 ## Librerias necesarias
 

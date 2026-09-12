@@ -19,6 +19,7 @@ void initOLED();
 void mostrarDatosOLED(float temp, float hum);
 void mostrarErrorSensorOLED();
 void mostrarAdvertenciaBateria();
+void mostrarEstadoBateria(int voltage);
 void mostrarConectadoWiFi();
 void mostrarConexionWiFiOLED();
 void mostrarErrorWiFiOLED();
